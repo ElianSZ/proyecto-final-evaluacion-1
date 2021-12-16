@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1077171115267361991}
   - component: {fileID: 8059165121873263499}
-  - component: {fileID: 7730726076684894127}
+  - component: {fileID: 5798378783320338233}
   m_Layer: 0
   m_Name: Proyectil
   m_TagString: Projetile
@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 130
---- !u!64 &7730726076684894127
-MeshCollider:
+--- !u!65 &5798378783320338233
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -56,10 +56,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 2
+  m_Size: {x: 0.26791146, y: 0.2731483, z: 2.2340813}
+  m_Center: {x: -0.00000018123295, y: -0.002615695, z: 0.0052286913}
 --- !u!1 &3600844965879381048
 GameObject:
   m_ObjectHideFlags: 0

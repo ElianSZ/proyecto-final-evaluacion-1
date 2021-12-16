@@ -6,26 +6,27 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public bool gameOver;
     public GameObject obstaclePrefab;
-    public List<Vector3> obstaclePositions;
+    public List<Vector3> targetPositions;
+    public GameObject collectablePrefab;
     public Vector3 randomSpawnPos;
-    public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI gameOverText;
+
+    private AudioSource cameraAudioSource;
 
     private float lim1 = 200f;
     private float lim2 = 0f;
-    private float spawnRate = 1f;
-    private float startDelay = 1f;
+    private float spawnRate = 5f;
+    private float startDelay = 5f;
 
-    private int score;
+    private string message;
+    public bool gameOver = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        cameraAudioSource = GameObject.Find("Main Camera").GetComponent<AudioSource>();
         StartCoroutine("spawnRandomTarget");
-        score = 0;
-        UpdateScore(0);
+        SpawnCollectable();
     }
 
     // Update is called once per frame
@@ -49,75 +50,22 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(spawnRate);
 
-            while (obstaclePositions.Contains(randomSpawnPos))
+            
+            while (targetPositions.Contains(randomSpawnPos))
             {
                 randomSpawnPos = RandomSpawnPosition();
             }
 
-            Instantiate(obstaclePrefab, randomSpawnPos, obstaclePrefab.transform.rotation);
-            obstaclePositions.Add(randomSpawnPos);
+            Instantiate(obstaclePrefab, RandomSpawnPosition(), obstaclePrefab.transform.rotation);
+            targetPositions.Add(randomSpawnPos);
         }
     }
 
-    public void UpdateScore(int pointsToAdd)
+    public void SpawnCollectable()
     {
-        score += pointsToAdd;
-        scoreText.text = $"Score: {score}";
-    }
-
-    public void GameOver()
-    {
-        gameOver = true;
-        gameOverText.gameObject.SetActive(true);
-    }
-}
-
-
-
-
-/*
-public Vector3 RandomSpawnPosition()
-{
-    float randomIntX = Random.Range(-lim1, lim1);
-    float randomIntY = Random.Range(lim2, lim1);
-    float randomIntZ = Random.Range(-lim1, lim1);
-    float randomPosX = randomIntX;
-    float randomPosY = randomIntY;
-    float randomPosZ = randomIntZ;
-
-    return new Vector3(randomPosX, randomPosY, randomPosZ);
-}
-
-private IEnumerator spawnRandomTarget()
-{
-    while (!gameOver)
-    {
-        yield return new WaitForSeconds(spawnRate);
-
-        Instantiate(obstaclePrefab, randomSpawnPos, obstaclePrefab.transform.rotation);
-
-        while (obstaclePositions.Contains(randomSpawnPos))
+        for (float instantiateCollectable = 0; instantiateCollectable < 10; ++instantiateCollectable)
         {
-            randomSpawnPos = RandomSpawnPosition();
+            Instantiate(collectablePrefab, RandomSpawnPosition(), collectablePrefab.transform.rotation);
         }
     }
 }
-*/
-
-
-
-/*
-    public void RandomSpawnPosition()
-    {
-        if (!gameOver)
-        {
-            float randomPosX = Random.Range(-lim1, lim1);
-            float randomPosY = Random.Range(lim2, lim1);
-            float randomPosZ = Random.Range(-lim1, lim1);
-
-            spawnPosition = new Vector3(randomPosX, randomPosY, randomPosZ);
-
-            Instantiate(obstaclePrefab, spawnPosition, obstaclePrefab.transform.rotation);
-        }
-    }
-    */

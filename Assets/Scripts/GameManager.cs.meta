@@ -3,7 +3,11 @@ guid: 3002356a846c32a449ec590f89b17829
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - obstaclePrefab: {fileID: 2195846728756982037, guid: 3cf30d30be2058a42877995d5a2c503c, type: 3}
+  - collectablePrefab: {fileID: 8304980239550619765, guid: bd91f483a0274a5418e69746494c8299, type: 3}
+  - scoreText: {instanceID: 0}
+  - gameOverText: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
