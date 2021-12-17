@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8564892491616143691}
   - component: {fileID: 1229935095702235430}
   - component: {fileID: 7940458394105207498}
+  - component: {fileID: -532755677480931265}
   m_Layer: 0
   m_Name: Proyectil
   m_TagString: Projetile
@@ -59,6 +60,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.26791146, y: 0.2731483, z: 2.2340813}
   m_Center: {x: -0.00000018123295, y: -0.002615695, z: 0.0052286913}
+--- !u!114 &-532755677480931265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3320033285592541877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91e0e1c4ad0cb0043a992404f374bfe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6034553535656713791
 GameObject:
   m_ObjectHideFlags: 0
@@ -70,7 +83,6 @@ GameObject:
   - component: {fileID: 2436040206147169744}
   - component: {fileID: 162118775999513844}
   - component: {fileID: 2569651324338799563}
-  - component: {fileID: 3648112224034400505}
   m_Layer: 0
   m_Name: Proyectil_mesh
   m_TagString: Untagged
@@ -141,17 +153,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &3648112224034400505
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6034553535656713791}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
