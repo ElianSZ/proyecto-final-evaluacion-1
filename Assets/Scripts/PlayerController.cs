@@ -21,13 +21,12 @@ public class PlayerController : MonoBehaviour
     private AudioSource playerAudioSource;
     public AudioClip shotClip;
 
-    public bool gameOver;
     public int score;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI winText;
+    public bool gameOver;
 
-    // Start is called before the first frame update
     void Start()
     {
         transform.position = initialPos;
@@ -38,25 +37,29 @@ public class PlayerController : MonoBehaviour
         winText.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        scoreText.text = $"Score: {score}";
+        scoreText.text = $"Score: {score}/10";
 
+        // Si la puntuación es igual o mayor a 10, gana el juego
         if (score >= 10)
         {
-            winText.gameObject.SetActive(true);
             Time.timeScale = 0;
+            winText.gameObject.SetActive(true);
+            gameOver = true;
         }
-
+        
+        // Mecanismo de disparo
         if (Input.GetKeyDown(KeyCode.RightControl))
         {
             // Se dispara el proyectil
             Instantiate(projectilePrefab, shooter.transform.position, transform.rotation);
 
-            playerAudioSource.PlayOneShot(shotClip, 1f);                                            // Ejecuta una vez el audio de disparo
+            // Ejecuta una vez el audio de disparo
+            playerAudioSource.PlayOneShot(shotClip, 1f);
         }
 
+        // Movimiento hacia delante
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
 
         // Movimiento horizontal
@@ -67,6 +70,7 @@ public class PlayerController : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
         transform.Rotate(Vector3.up * Time.deltaTime * turnSpeed * horizontalInput);
 
+        // Límites de la escena
         if (transform.position.x > xLim)
         {
             transform.position = new Vector3(xLim, transform.position.y, transform.position.z);
@@ -98,27 +102,29 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Si colisiona con un collectable, suma 1 punto
     public void OnCollisionEnter(Collision otherCollider)
     {
-        if (!gameOver)
+        if (otherCollider.gameObject.CompareTag("Collectable"))
         {
-            if (otherCollider.gameObject.CompareTag("Collectable"))
-            {
-                Destroy(otherCollider.gameObject);
-                score = score + 1;
-            }
+            Destroy(otherCollider.gameObject);
+            score = score + 1;
+        }
 
-            else if (otherCollider.gameObject.CompareTag("Obstacle"))
-            {
-                gameOverText.gameObject.SetActive(true);
-                Destroy(gameObject);
-            }
+        // Si colisiona con un obstacle, destruye ambos objetos
+        else if (otherCollider.gameObject.CompareTag("Obstacle"))
+        {
+            Destroy(otherCollider.gameObject);
+            Destroy(gameObject);
+            gameOverText.gameObject.SetActive(true);
+            gameOver = true;
         }
     }
 
+    // Indica que el score se actualiza con los puntos obtenidos
     public void UpdateScore(int pointsToAdd)
     {
         score += pointsToAdd;
-        scoreText.text = $"Score: {score}";
+        scoreText.text = $"Score: {score}/ 10";
     }
 }

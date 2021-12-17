@@ -19,9 +19,8 @@ public class GameManager : MonoBehaviour
     private float startDelay = 5f;
 
     private string message;
-    public bool gameOver = false;
+    public bool gameOver;
 
-    // Start is called before the first frame update
     void Start()
     {
         cameraAudioSource = GameObject.Find("Main Camera").GetComponent<AudioSource>();
@@ -29,12 +28,13 @@ public class GameManager : MonoBehaviour
         SpawnCollectable();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // Invica repetidamente la función RandomSpawnPosition
         InvokeRepeating("RandomSpawnPosition", startDelay, spawnRate);
     }
 
+    // Posición de spawnear de los obstáculos
     public Vector3 RandomSpawnPosition()
     {
         float randomPosX = Random.Range(-lim1, lim1);
@@ -44,10 +44,12 @@ public class GameManager : MonoBehaviour
         return new Vector3(randomPosX, randomPosY, randomPosZ);
     }
 
+    // Controlador de spawnear los obstáculos
     private IEnumerator spawnRandomTarget()
     {
         while (!gameOver)
         {
+            // Cada 5s se spawnea un obstáculo
             yield return new WaitForSeconds(spawnRate);
 
             
@@ -56,11 +58,13 @@ public class GameManager : MonoBehaviour
                 randomSpawnPos = RandomSpawnPosition();
             }
 
+            // Instancia los obstáculos
             Instantiate(obstaclePrefab, RandomSpawnPosition(), obstaclePrefab.transform.rotation);
             targetPositions.Add(randomSpawnPos);
         }
     }
 
+    // Spawneo de los colectables
     public void SpawnCollectable()
     {
         for (float instantiateCollectable = 0; instantiateCollectable < 10; ++instantiateCollectable)
